@@ -7,4 +7,5 @@ class MoodBlock(models.Model):
     album = models.CharField(max_length=200)
     artist = models.CharField(max_length=200)
     img = models.CharField(max_length=200)
-    audio = models.FileField()
+    link = models.CharField(max_length=200)
+    audio = models.CharField(max_length=200)

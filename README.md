@@ -1,4 +1,4 @@
-# Mood Board
+# Streaming Stats
 
 A collection of Spotify statistics created using Django and Spotipy.
 

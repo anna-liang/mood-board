@@ -9,7 +9,6 @@ def index(request):
     uniqueAlbums = []
     topTracks = []
     results = spotifyObj.current_user_top_tracks(time_range='medium_term')['items']
-    print(results)
     for track in results:
         if track['album']['name'] not in uniqueAlbums and len(uniqueAlbums) < 9:
             mb = MoodBlock()
@@ -17,7 +16,7 @@ def index(request):
             mb.artist = track['artists'][0]['name']
             mb.track = track['name']
             mb.audio = "https://open.spotify.com/embed/track/" + track['id']
-            print(mb.audio)
+            mb.link = track['external_urls']['spotify']
             for image in track['album']['images']:
                 if image['height'] == 300:
                     mb.img = image['url']
