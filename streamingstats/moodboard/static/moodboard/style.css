@@ -1,0 +1,23 @@
+li {
+    color: white;
+}
+
+body {
+    background: black;
+}
+
+h1, h2 {
+    color: white;
+    text-align: center;
+}
+
+.column {
+    float: left;
+    margin-right: 12%;
+}
+
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}

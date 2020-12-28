@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ moodboard|title }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'moodboard/style.css' %}">
+</head>
+
+<body>
+    <h1 style="text-align:centre">{{ moodboard|title }}</h1>
+
+    <div class="row">
+        <div class="column">
+            <div class="mb-row">
+                {% for moodblock in topTracks %}
+                    <a href="{{ moodblock.audio }}>" target="_blank"><img alt="album art" src="{{ moodblock.img }}"></a>
+                    {% if forloop.counter|divisibleby:3 %}
+                        </div>
+                        <div class="mb-row">
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="column">
+            {% comment %} <h2>Summary</h2> {% endcomment %}
+            <ol>
+                {% for moodblock in topTracks %}
+                <li>
+                    <div>{{ moodblock.track }} by {{ moodblock.artist }}</div>
+                    <iframe src="{{ moodblock.audio }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</body>
+
+</html>
