@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 
 from .apps import spotifyObj
@@ -5,10 +6,15 @@ from .apps import spotifyObj
 from .models import MoodBlock
 
 # Create your views here.
-def index(request):
+def index(request, term='M'):
+    terms = {'S': 'short_term', 'M': 'medium_term', 'L': 'long_term'}
     uniqueAlbums = []
     topTracks = []
-    results = spotifyObj.current_user_top_tracks(time_range='medium_term')['items']
+    try:
+        timeRange = terms[term]
+    except KeyError:
+        raise Http404("Term does not exist")
+    results = spotifyObj.current_user_top_tracks(time_range=timeRange)['items']
     for track in results:
         if track['album']['name'] not in uniqueAlbums and len(uniqueAlbums) < 9:
             mb = MoodBlock()
@@ -24,4 +30,4 @@ def index(request):
             topTracks.append(mb)
         if len(uniqueAlbums) == 9:
             break
-    return render(request, 'moodboard/index.html', {'moodboard': 'mood board', 'topTracks': topTracks})
+    return render(request, 'moodboard/index.html', {'moodboard': 'mood board', 'topTracks': topTracks, 'term': term})
