@@ -1,7 +1,4 @@
 Django==3.1.2
 gunicorn==20.0.4
-python-apt==2.0.0+ubuntu0.20.4.2
-python-dateutil==2.7.3
-python-debian===0.1.36ubuntu1
 spotipy==2.16.0
 whitenoise==5.2.0
