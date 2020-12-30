@@ -1,12 +1,34 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from .apps import spotifyObj
+import os
 
-from .models import MoodBlock
+from moodboard.models import MoodBlock
+
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
 
 # Create your views here.
 def index(request, term='M'):
+
+    clientID = os.environ['SPOTIPY_CLIENT_ID']
+    clientSecret = os.environ['SPOTIPY_CLIENT_SECRET']
+    redirectURI = os.environ['SPOTIPY_REDIRECT_URI']
+    spOAuth = SpotifyOAuth(client_id=clientID, client_secret=clientSecret, redirect_uri=redirectURI)
+    token = spOAuth.get_access_token()
+    if token:
+        accessToken = token['access_token']
+    else:
+        url = request.url
+        code = spOAuth.parse_auth_response_url(url)
+        if code:
+            token = spOAuth.get_access_token(code)
+            accessToken = token['access_token']
+
+    if accessToken:
+        spotifyObj = spotipy.Spotify(accessToken)
+        user = spotifyObj.current_user()
+
     terms = {'S': 'short_term', 'M': 'medium_term', 'L': 'long_term'}
     uniqueAlbums = []
     topTracks = []
