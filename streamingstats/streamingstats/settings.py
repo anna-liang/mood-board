@@ -27,9 +27,9 @@ sys.path.append(os.path.join(PROJECT_ROOT, 'streamingstats'))
 SECRET_KEY = os.environ.get('SECRET_KEY', 't^$9h2idjs$^q24x*rwhzh95d1bu($feq!+z(8f(1*bd++xlvc')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['streamingstats.herokuapp.com', '127.0.0.1']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'root')
 
