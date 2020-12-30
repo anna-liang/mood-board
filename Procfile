@@ -1,1 +1,1 @@
-web: gunicorn streamingstats.wsgi --log-file -
+web: gunicorn --pythonpath streamingstats streamingstats.wsgi --log-file -
