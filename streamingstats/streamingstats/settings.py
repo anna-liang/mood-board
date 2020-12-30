@@ -24,7 +24,7 @@ sys.path.append(os.path.join(PROJECT_ROOT, 'streamingstats'))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ.get('SECRET_KEY', 't^$9h2idjs$^q24x*rwhzh95d1bu($feq!+z(8f(1*bd++xlvc')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
