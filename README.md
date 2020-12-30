@@ -3,8 +3,8 @@
 A collection of Spotify statistics created using Django and Spotipy.
 
 ## Key Features
+![mood board gif](https://raw.githubusercontent.com/anna-liang/streaming-stats/main/media/mood-board.gif)
 - Interactive mood board of a user's top 9 tracks displayed with via album art
-![mood board gif](https://github.com/anna-liang/streaming-stats/tree/main/media/mood-board.gif)
 
 ## Installation
 
