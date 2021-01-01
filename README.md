@@ -1,10 +1,13 @@
-# Streaming Stats
+# Mood Board
 
-A collection of Spotify statistics created using Django and Spotipy.
+A collection of a user's top 9 Spotify tracks organized in a mood board.
 
-## Key Features
 ![mood board gif](https://raw.githubusercontent.com/anna-liang/streaming-stats/main/media/mood-board.gif)
-- Interactive mood board of a user's top 9 tracks displayed with via album art
+
+## Features
+- Separate mood boards for top tracks for the last 4 weeks, 6 months, and all-time.
+- Interactive mood board via album art
+- A provided summary of the tracks are available for listening
 
 ## Installation
 
