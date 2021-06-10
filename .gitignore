@@ -1,0 +1,9 @@
+# Cache files
+.cache
+streamingstats/.cache*
+streamingstats/moodboard/__pycache__/*
+streamingstats/streamingstats/__pycache__/*
+
+# DB
+streamingstats/db.*
+streamingstats/moodboard/migrations/*

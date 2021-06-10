@@ -18,5 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('moodboard/', include('moodboard.urls')),
+    path('moodboard/login/', include('moodboard.urls')),
+    path('moodboard/callback/', include('moodboard.urls')),
+    path('moodboard/summary/', include('moodboard.urls')),
     path('admin/', admin.site.urls),
 ]
