@@ -10,28 +10,31 @@ import spotipy.util as util
 from spotipy.oauth2 import SpotifyOAuth
 # import spotipy.oauth2 as oauth2
 
+clientID = os.environ['SPOTIPY_CLIENT_ID']
+clientSecret = os.environ['SPOTIPY_CLIENT_SECRET']
+redirectURI = os.environ['SPOTIPY_REDIRECT_URI']
+
 # Create your views here.
 def index(request):
     return render(request, 'moodboard/index.html', {'moodboard': 'mood board'})
 
 def login(request):
-    print("login")
-    print(request)
-    clientID = os.environ['SPOTIPY_CLIENT_ID']
-    clientSecret = os.environ['SPOTIPY_CLIENT_SECRET']
-    redirectURI = os.environ['SPOTIPY_REDIRECT_URI']
-    authManager = SpotifyOAuth(scope='user-top-read', client_id=clientID, client_secret=clientSecret, redirect_uri=redirectURI)
+    # print("login")
+    # print(request)
+    # clientID = os.environ['SPOTIPY_CLIENT_ID']
+    # clientSecret = os.environ['SPOTIPY_CLIENT_SECRET']
+    # redirectURI = os.environ['SPOTIPY_REDIRECT_URI']
+    authManager = SpotifyOAuth(scope='user-top-read', client_id=clientID, client_secret=clientSecret, redirect_uri=redirectURI, show_dialog=True)
     return redirect(SpotifyOAuth.get_authorize_url(authManager))
 
 def callback(request, code=None):
-    print("callback")
+    # print("callback")
     code = request.GET.get("code")
-    clientID = os.environ['SPOTIPY_CLIENT_ID']
-    clientSecret = os.environ['SPOTIPY_CLIENT_SECRET']
-    redirectURI = os.environ['SPOTIPY_REDIRECT_URI']
-    print(code)
+    # clientID = os.environ['SPOTIPY_CLIENT_ID']
+    # clientSecret = os.environ['SPOTIPY_CLIENT_SECRET']
+    # redirectURI = os.environ['SPOTIPY_REDIRECT_URI']
+    # print(code)
     if code is not None:
-        # SpotifyOAuth.get_access_token(code)
         accessToken = SpotifyOAuth.get_access_token(SpotifyOAuth(scope='user-top-read', client_id=clientID, client_secret=clientSecret, redirect_uri=redirectURI), code)
         accessToken = accessToken['access_token']
         request.session['access_token'] = accessToken
@@ -40,15 +43,13 @@ def callback(request, code=None):
         return redirect(reverse('login'))
 
 def summary(request, term='M', unique=1):
-    print("summary")
-    # print(request.session['access_token'])
-    # clientID = os.environ['SPOTIPY_CLIENT_ID']
-    # clientSecret = os.environ['SPOTIPY_CLIENT_SECRET']
-    # redirectURI = os.environ['SPOTIPY_REDIRECT_URI']
     accessToken = request.session['access_token']
-    # print("unique:", unique)
+    if (os.path.exists('.cache')):
+        os.remove('.cache')
+    print(accessToken)
     if accessToken is not None:
         sp = spotipy.Spotify(accessToken)
+        print(sp.current_user()['display_name'])
         terms = {'S': 'short_term', 'M': 'medium_term', 'L': 'long_term'}
         uniqueAlbums = []
         topTracks = []
@@ -78,4 +79,3 @@ def summary(request, term='M', unique=1):
         return render(request, 'moodboard/summary.html', {'moodboard': 'mood board', 'topTracks': topTracks, 'term': term, 'unique': unique})
     else:
         return redirect(reverse('login'))
-    # return render(request, 'moodboard/summary.html')
