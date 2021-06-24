@@ -1,10 +1,28 @@
+.grid {
+    display: table;
+    border-spacing: 30px;
+    margin: auto;
+}
+
+.grid-row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+}
+
+.title {
+    width: 50px;
+}
+
 .zoom {
     transition: transform .5s;
     width: 300px;
     height: 300px;
     margin: 0 auto;
-  }
-  
+}
+
 .zoom:hover {
     transform: scale(1.2);
 }

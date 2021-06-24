@@ -9,10 +9,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 
-
 <body>
     <blockquote class="blockquote text-center">
-        <h1>{{ moodboard|title }}</h1>
+        <h1>{{ user }}'s {{ moodboard|title }}</h1>
         <p>A collection of your top 9 tracks organized into a mood board.</p>
         <div class="row justify-content-md-center">
             <form action="/moodboard/summary/term=S/unique={{ unique }}">
@@ -33,43 +32,33 @@
         </div>
         <div class="row justify-content-md-center">
             <form id="uniqueAlbumsForm" action="/moodboard/summary/term={{ term }}/unique={{ unique|yesno:"0,1" }}">
-                {% comment %} <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="uniqueAlbums" {% if unique == 0 %} checked {% endif %}>
-                    <label class="custom-control-label" for="uniqueAlbums">Show songs in the same album</label>
-                </div> {% endcomment %}
                 <input class="btn btn-outline-dark {% if unique == 0 %} active {% endif %}" type="submit" value="Show songs in the same album">
             </form>
         </div>
     </blockquote>
 
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-lg-auto">
-                <div class="row">
-                    {% for moodblock in topTracks %}
-                        <div class="col">
-                            <a href="{{ moodblock.link }}" target="_blank">
-                                <img class="zoom" alt="album art" src="{{ moodblock.img }}">
-                            </a>
-                        </div>
-                        {% if forloop.counter|divisibleby:3 %}
-                            </div>
-                            <br>
-                            <div class="row">
-                        {% endif %}
-                    {% endfor %}
+    <div class="grid">
+        <div class="grid-row">
+            {% for moodblock in topTracks %}
+                <div class="cell">
+                    <a href="{{ moodblock.link }}" target="_blank">
+                        <img class="zoom" alt="album art" src="{{ moodblock.img }}">
+                    </a>
                 </div>
-            </div>
+                {% if forloop.counter|divisibleby:3 %}
+                    </div>
+                    <div class="grid-row">
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
-    <br>
 
-    <div class="container">
-        <p class="h2 text-center">Summary</p>
-        <div class="row justify-content-md-center">
+    <p class="h2 text-center">Summary</p>
+    <div class="grid">
+        <div class="grid-row">
             {% for moodblock in topTracks %}
                 {% if forloop.counter > 0 and forloop.counter <= 3 %}
-                    <div class="col-4">
+                    <div class="cell title">
                         <div>{{ forloop.counter }}. {{ moodblock.track }} by {{ moodblock.artist }}</div>
                     </div>
                     {% if forloop.counter|divisibleby:3 %}
@@ -77,10 +66,10 @@
                     {% endif %}
                 {% endif %}
             {% endfor %}
-        <div class="row justify-content-md-center">
+        <div class="grid-row">
             {% for moodblock in topTracks %}
                 {% if forloop.counter > 0 and forloop.counter <= 3 %}
-                    <div class="col-4">
+                    <div class="cell">
                         <iframe src="{{ moodblock.audio }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                     </div>
                     {% if forloop.counter|divisibleby:3 %}
@@ -88,11 +77,10 @@
                     {% endif %}
                 {% endif %}
             {% endfor %}
-        <br>
-        <div class="row justify-content-md-center">
+        <div class="grid-row">
             {% for moodblock in topTracks %}
                 {% if forloop.counter > 3 and forloop.counter <= 6 %}
-                    <div class="col-4">
+                    <div class="cell title">
                         <div>{{ forloop.counter }}. {{ moodblock.track }} by {{ moodblock.artist }}</div>
                     </div>
                     {% if forloop.counter|divisibleby:3 %}
@@ -100,10 +88,10 @@
                     {% endif %}
                 {% endif %}
             {% endfor %}
-        <div class="row justify-content-md-center">
+        <div class="grid-row">
             {% for moodblock in topTracks %}
                 {% if forloop.counter > 3 and forloop.counter <= 6 %}
-                    <div class="col-4">
+                    <div class="cell">
                         <iframe src="{{ moodblock.audio }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                     </div>
                     {% if forloop.counter|divisibleby:3 %}
@@ -111,11 +99,10 @@
                     {% endif %}
                 {% endif %}
             {% endfor %}
-        <br>
-        <div class="row justify-content-md-center">
+        <div class="grid-row">
             {% for moodblock in topTracks %}
                 {% if forloop.counter > 6 and forloop.counter <= 9 %}
-                    <div class="col-4">
+                    <div class="cell title">
                         <div>{{ forloop.counter }}. {{ moodblock.track }} by {{ moodblock.artist }}</div>
                     </div>
                     {% if forloop.counter|divisibleby:3 %}
@@ -123,10 +110,10 @@
                     {% endif %}
                 {% endif %}
             {% endfor %}
-        <div class="row justify-content-md-center">
+        <div class="grid-row">
             {% for moodblock in topTracks %}
                 {% if forloop.counter > 6 and forloop.counter <= 9 %}
-                    <div class="col-4">
+                    <div class="cell">
                         <iframe src="{{ moodblock.audio }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                     </div>
                     {% if forloop.counter|divisibleby:3 %}
@@ -138,24 +125,11 @@
     <hr>
     
     <blockquote class="blockquote text-center">
-        <footer class="h6">&#169; Copyright 2020.</footer>
+        <footer class="h6">&#169; Copyright 2021.</footer>
         <a href="https://github.com/anna-liang/streaming-stats" target="_blank">
             <img alt="github logo" src="{% static 'moodboard/GitHub-Mark-32px.png' %}">
         </a>
     </blockquote>
-
-    {% block javascript %}
-        <script>
-            let uniqueElem = document.querySelector("#uniqueAlbums");
-            uniqueElem.addEventListener('change', function(event) {
-                event.preventDefault();
-                // console.log(uniqueElem.checked);
-                uniqueElem.checked = !uniqueElem.checked;
-                alert(uniqueElem.checked);
-                document.querySelector("#uniqueAlbumsForm").submit();
-            });
-        </script>
-    {% endblock %}
 
 </body>
 
