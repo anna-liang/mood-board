@@ -2,10 +2,13 @@
 
 A collection of a user's top 9 Spotify tracks organized in a mood board.
 
-![mood board gif](https://raw.githubusercontent.com/anna-liang/streaming-stats/main/media/mood-board.gif)
+![mood board gif](/media/mood-board.gif)
+
+Try out the live version [here](https://mood-boards.herokuapp.com/)!
 
 ## Features
 - Separate mood boards for top tracks for the last 4 weeks, 6 months, and all-time.
+- Filter tracks from the same album
 - Interactive mood board via album art
 - A provided summary of the tracks are available for listening
 
@@ -34,6 +37,7 @@ export SPOTIPY_REDIRECT_URI="<SPOTIPY_REDIRECT_URI>"
 
 To start the Mood Board application, run the following command:
 ```bash
+cd streamingstats
 python manage.py runserver
 ```
 
