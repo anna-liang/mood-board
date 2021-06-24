@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
 urlpatterns = [
+    path('', lambda request: redirect('moodboard/')),
     path('moodboard/', include('moodboard.urls')),
     path('moodboard/login/', include('moodboard.urls')),
     path('moodboard/callback/', include('moodboard.urls')),
